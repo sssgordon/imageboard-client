@@ -48,3 +48,26 @@ export const createImage = data => dispatch => {
     })
     .catch(console.error);
 };
+
+//login
+export const LOGIN = "LOGIN";
+
+function loginAction(payload) {
+  return {
+    type: LOGIN,
+    payload
+  };
+}
+
+export const login = (email, password) => dispatch => {
+  request
+    .post(`${baseUrl}/login`)
+    .send({ email, password })
+    .then(response => {
+      console.log(response);
+      const action = loginAction(response.jwt);
+
+      dispatch(action);
+    })
+    .catch(console.error);
+};
